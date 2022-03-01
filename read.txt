@@ -1,0 +1,4 @@
+DB Migration
+
+local to docker container
+docker container to local
