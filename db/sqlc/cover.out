@@ -1,0 +1,18 @@
+mode: set
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:27.96,38.2 4 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:45.70,48.2 2 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:55.78,66.2 4 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:80.94,82.16 2 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:85.2,87.18 3 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:100.2,100.37 1 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:103.2,103.35 1 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:106.2,106.19 1 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:82.16,84.3 1 0
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:87.18,95.17 2 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:98.3,98.27 1 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:95.17,97.4 1 0
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:100.37,102.3 1 0
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:103.35,105.3 1 0
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/account.sql.go:120.84,124.2 2 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/db.go:17.28,19.2 1 1
+github.com/hhong0326/goPostgresqlDocker.git/db/sqlc/db.go:25.47,29.2 1 0
