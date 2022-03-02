@@ -1,0 +1,21 @@
+MEMO
+
+#DB Migration 
+
+local to docker container
+docker container to local
+
+brew install postgresql
+brew install tableplus
+brew install sqlc // sql to go 
+
+go get github.com/lib/pq
+go get github.com/stretchr/testify
+
+#CRUD sqlc
+
+#Unit tests
+
+When writing Unit tests,
+Should make sure that they are independent from each other.
+Why: hard to maintain if has hundred of tests that depends on each other.
