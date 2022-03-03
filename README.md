@@ -1,4 +1,4 @@
-# go Postgresql Docker
+# Simple Bank
 
 Clone and Study Backend master class [Golang, Postgres, Docker] 
 

@@ -1,6 +1,6 @@
 MEMO
 
-#DB Migration 
+# DB Migration 
 
 local to docker container
 docker container to local
@@ -12,10 +12,30 @@ brew install sqlc // sql to go
 go get github.com/lib/pq
 go get github.com/stretchr/testify
 
-#CRUD sqlc
+# CRUD sqlc
 
-#Unit tests
+# Unit tests
 
 When writing Unit tests,
 Should make sure that they are independent from each other.
 Why: hard to maintain if has hundred of tests that depends on each other.
+
+# Transaction
+
+DB Transaction
+
+Why?
+1. To provide a reliable and consistent unit of work, even in case of system failure.
+2. To provide isolation between programs that access the database concurrently.
+
+A: Atomicity
+C: Consistency
+I: Isolation
+D: Durability
+
+Closure is often used when want to get the result from a callback function.
+the callback function itself doesn't know the exact type of the result it should return
+
+# Caution when Database Transaction
+concurrency carefully!
+The best way that is run it with several concurrent go routines
