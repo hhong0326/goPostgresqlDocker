@@ -1,3 +1,1 @@
-Makefile
-/db/sqlc/main_test.go
 /db/sqlc/cover.out
