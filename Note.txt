@@ -57,14 +57,12 @@ SELECT * FROM accounts WHERE id = $1 LIMIT 1
 + FOR NO KEY UPDATE
 
 # Isolation level
-dirty read | read uncommitted
+dirty read | read uncommitted 
 non-repeatable read |read committed
 phantom read | repeatable read
-serializable
+serialization anomaly | serializable
 
-postgresql tx begin first when change isolation level
-repeatable read -> return error
-serializable -> prevent to repeat
-
+postgresql tx begin first when change isolation level.
+postgresql not working level of dirty read | read uncommitted.
 postgresql uses a dependencies checking mechanism
 to detect potensial read phenomena and stop them by throwing error
