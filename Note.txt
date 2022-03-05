@@ -39,3 +39,19 @@ the callback function itself doesn't know the exact type of the result it should
 # Caution when Database Transaction
 concurrency carefully!
 The best way that is run it with several concurrent go routines
+
+# Update Account within Transaction
+Require careful handing of concurrent transactions to avoid deadlock
+database locking 
+
+# TDD | test driven development
+Tests first to make our current code breaks
+
+# Deadlock postgresql
+https://wiki.postgresql.org/wiki/Lock_Monitoring
+Deadlock ocuurs because 2 concurrent transactions both need to wait for each other
+
+can resolve deadlock consider order of transactions
+
+SELECT * FROM accounts WHERE id = $1 LIMIT 1
++ FOR NO KEY UPDATE
