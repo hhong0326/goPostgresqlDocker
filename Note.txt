@@ -66,3 +66,10 @@ postgresql tx begin first when change isolation level.
 postgresql not working level of dirty read | read uncommitted.
 postgresql uses a dependencies checking mechanism
 to detect potensial read phenomena and stop them by throwing error
+
+# Github Actions | workflows
+Golang Unit tests in external postgres service in github using .github/workflows/ci.yml
+
+project folder -> 
+    mkdir -p .github/workflows
+    touch .github/workflows/ci.yml
