@@ -81,3 +81,10 @@ Gin.
 the router field(package) is private so that Start function makes to access api package
 
 * _ "github.com/lib/pq"
+
+# Viper
+golang packege, dealing with configuration file
+ex) ENV, YAML ...
+
+app.env
+UPPERCASE=123

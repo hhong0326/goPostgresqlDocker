@@ -6,20 +6,19 @@ import (
 
 	"github.com/hhong0326/goPostgresqlDocker.git/api"
 	db "github.com/hhong0326/goPostgresqlDocker.git/db/sqlc"
+	"github.com/hhong0326/goPostgresqlDocker.git/util"
 	_ "github.com/lib/pq"
-)
-
-const (
-	dbDriver      = "postgres"
-	dbSource      = "postgres://root:secret@localhost:5432/simple_bank?sslmode=disable"
-	serverAddress = "0.0.0.0:8080"
 )
 
 // main setup db first and start api server
 func main() {
 
-	var err error
-	conn, err := sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config: ", err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db: ", err)
 	}
@@ -27,7 +26,7 @@ func main() {
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
 
-	server.Start(serverAddress)
+	server.Start(config.ServerAddress)
 	if err != nil {
 		log.Fatal("cannot start server: ", err)
 	}
