@@ -1,0 +1,10 @@
+###
+POST http://localhost:8080/accounts
+
+{
+    "owner": "Sunil",
+    "currency": "USD"
+}
+
+###
+http://localhost:8080/accounts?page_id=0&page_size=32

@@ -73,3 +73,11 @@ Golang Unit tests in external postgres service in github using .github/workflows
 project folder -> 
     mkdir -p .github/workflows
     touch .github/workflows/ci.yml
+
+
+# HTTP API
+
+Gin.
+the router field(package) is private so that Start function makes to access api package
+
+* _ "github.com/lib/pq"

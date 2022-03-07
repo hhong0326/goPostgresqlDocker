@@ -9,5 +9,7 @@ packages:
     emit_prepared_queries: false
     emit_interface: false
     emit_exact_table_names: false
-# accounts table -> Accounts struct
-# var account Accounts
+    # accounts table -> Accounts struct
+    # var account Accounts
+    emit_empty_slices: true
+    # nil slice checks
