@@ -11,6 +11,7 @@ brew install sqlc // sql to go
 
 go get github.com/lib/pq
 go get github.com/stretchr/testify
+                                  /require
 
 # CRUD sqlc
 
@@ -88,3 +89,14 @@ ex) ENV, YAML ...
 
 app.env
 UPPERCASE=123
+
+# Mock DB
+
+make store to mock using interface.
+interface cannot be pointer  
+
+gomock makes fake DB Unit tests easily.
+through the interface about DB service, mockgen makes Mock Service for Unit tests
+
+# Test Multiple senarios
+using t.Run().
