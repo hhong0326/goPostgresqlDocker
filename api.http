@@ -22,3 +22,13 @@ DELETE  http://localhost:8080/accounts
 {
     "id": 237
 }
+
+###
+POST http://localhost:8080/transfers
+
+{
+    "from_account_id": 778,
+    "to_account_id": 779,
+    "amount": 1,
+    "currency": "DDD"
+}

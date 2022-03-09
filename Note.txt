@@ -99,4 +99,11 @@ gomock makes fake DB Unit tests easily.
 through the interface about DB service, mockgen makes Mock Service for Unit tests
 
 # Test Multiple senarios
-using t.Run().
+using t.Run()
+
+# struct `` options -> nedd validator
+binding:"oneof= " -> How to avoid hard-coding -> just 'currency'
+
+import "github.com/go-playground/validator/v10"
+var validCurreny validator.Func
+  -> binding.Validator.Engine() (server.go)
