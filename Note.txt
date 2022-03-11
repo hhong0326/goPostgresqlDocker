@@ -16,6 +16,7 @@ brew install postgresql
 brew install tableplus
 brew install sqlc // sql to go 
 
+# pq - A pure Go postgres driver for Go's database/sql package
 go get github.com/lib/pq
 go get github.com/stretchr/testify
                                   /require
@@ -141,3 +142,12 @@ create a new migration version.
 
 command "migrate -verbose up 1 || down 1" -> choose version when migration.
 so that can backup the db version
+
+# handle DB errors for adding users migration
+
+change owner -> user.Username(foreign key) to account test file.
+command "make mock" regenerate
+  -> added User interface to mock store file
+
+Handle error code to the others
+client accesss db constraits error code -> 403 

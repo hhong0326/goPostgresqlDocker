@@ -2,8 +2,8 @@
 POST http://localhost:8080/accounts
 
 {
-    "owner": "Sunil",
-    "currency": "USD"
+    "owner": "kawjjk",
+    "currency": "EUR"
 }
 
 ###

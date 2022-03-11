@@ -2,11 +2,11 @@ package api
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	db "github.com/hhong0326/goPostgresqlDocker.git/db/sqlc"
+	"github.com/lib/pq"
 )
 
 type createAccountRequest struct {
@@ -32,7 +32,15 @@ func (server *Server) createAccount(ctx *gin.Context) {
 
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
+		if pqErr, ok := err.(*pq.Error); ok {
+			switch pqErr.Code.Name() {
+			case "foreign_key_violation", "unique_violation":
+				ctx.JSON(http.StatusForbidden, errorResponse(err))
+				return
+			}
+		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	ctx.JSON(http.StatusOK, account)
@@ -47,8 +55,6 @@ func (server *Server) getAccount(ctx *gin.Context) {
 	var req getAccountRequest
 
 	if err := ctx.ShouldBindUri(&req); err != nil {
-
-		fmt.Println(req)
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
