@@ -5,6 +5,13 @@ MEMO
 local to docker container
 docker container to local
 
+
+migrate create -ext sql -dir db/migration -seq init_schema
+-seq means migrate version name.
+
+migrate -path db/migration -database "postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
+
+
 brew install postgresql
 brew install tableplus
 brew install sqlc // sql to go 
@@ -14,6 +21,12 @@ go get github.com/stretchr/testify
                                   /require
 
 # CRUD sqlc
+
+move to root directory
+ -> command "sqlc init"
+ -> set sqlc.yaml file
+ -> command "sqlc generate"
+
 
 # Unit tests
 
@@ -107,3 +120,24 @@ binding:"oneof= " -> How to avoid hard-coding -> just 'currency'
 import "github.com/go-playground/validator/v10"
 var validCurreny validator.Func
   -> binding.Validator.Engine() (server.go)
+
+# User Authentication and Authorization
+
+# Update DB schema to previous version 
+
+add foreign key and unique constraint
+ref: 
+    > many to one
+    < one to many
+    - one to one
+
+make unique constraint
+  indexes
+  (field1, field2) [unique] 
+
+Right way to migrate!
+if you want to apply a new schema change,
+create a new migration version.
+
+command "migrate -verbose up 1 || down 1" -> choose version when migration.
+so that can backup the db version
