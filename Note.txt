@@ -150,4 +150,7 @@ command "make mock" regenerate
   -> added User interface to mock store file
 
 Handle error code to the others
-client accesss db constraits error code -> 403 
+400 403 404
+500
+
+500 -> client accesss db constraits error code -> 403 
