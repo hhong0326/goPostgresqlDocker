@@ -1,4 +1,15 @@
 ###
+POST http://localhost:8080/users
+
+{
+    "username": "helloWin",
+    "password": "12345678",
+    "full_name": "Sunil Gong",
+    "email": "abc2@123.com"
+}
+
+
+###
 POST http://localhost:8080/accounts
 
 {
