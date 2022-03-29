@@ -154,3 +154,13 @@ Handle error code to the others
 500
 
 500 -> client accesss db constraits error code -> 403 
+
+# bcrypt
+make hashed password
+
+# gomcok matcher
+
+hash and salt makes pw test difficult
+using matcher interface can make custom matcher
+
+just implemented, unit test be stronger 
