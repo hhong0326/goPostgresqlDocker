@@ -164,3 +164,44 @@ hash and salt makes pw test difficult
 using matcher interface can make custom matcher
 
 just implemented, unit test be stronger 
+
+# JWT To PASETO
+
+JSON Web Token
+"Header.Payload.Signature"
+
+JWT Signing Algorithms
+
+1. Symmetric digital signature algorithm
+- the same secret key is used to sign & verify Token
+- For local use: internal services, where the secret key can be shared
+- HS256, HS384, HS512
+  - HS256 = HMAC + SHA256
+  - HMAC: Hash-based Message Authentication Code
+  - SHA: Secure Hash Algorithm
+  - 256/384/512: number of output bits
+
+2. Asymmetric disigtal signature algorithm
+- The private key is used to sign Token
+- The publi key is used to verify Token
+- For public use: internal service signs token, but external service needs to verify it
+- RS256, RS384, RS512 || PS256, PS384, PS512 || ES ...
+  - RS256 = RSA PKCSv1.5 + SHA256 [PKCS: Public-Key cryptography Standards]
+  - PS256 = RSA PSS + SHA256 [PSS: Probabilistic Signature Schema]
+  - ES256 = ECDSA + SHA256 [ECDSA: Elliptic CUrve Digital Signature Algorithm]
+
+Problem of JWT
+  - weak Algorithms
+  - Trivial Forgery(위조)
+
+
+  PASETO
+  Platform-Agnostic SEcurity TOkens
+
+  - Stronger algorithm 
+  (only need to select the version of PASETO)
+  (Only 2 mosst recenbt PASETO versions are accepted)
+
+  local -> Symmetric
+  public -> Asymmetric
+  
