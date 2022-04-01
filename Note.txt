@@ -205,3 +205,30 @@ Problem of JWT
   local -> Symmetric
   public -> Asymmetric
   
+# Create JWT & PASETO token
+
+interface 2 method
+
+CreateToken
+VerifyToken
+
+go get github.com/google/uuid
+
+Implementation of interface
+  - Add Method for interface
+  - Where the struct required function(method) of the interface
+  - Implement method
+  - Write func () MethodName() {}
+
+Keyfunc is that receives the parsed but unverified token
+verify its header, about siging algorithm matches
+
+Test JWTToken function
+both happy and error case
+
+jwt to paseto
+go get github.com/o1egl/paseto
+
+PASETO CreaetToken -> paseto.Encrypt
+PASETO VerifyToken -> paseto.Decrypt
+
