@@ -8,6 +8,16 @@ POST http://localhost:8080/users
     "email": "abc2@123.com"
 }
 
+###
+POST http://localhost:8080/users/login
+
+{
+    "username": "helloMAC",
+    "password": "12345678"
+}
+
+
+
 
 ###
 POST http://localhost:8080/accounts

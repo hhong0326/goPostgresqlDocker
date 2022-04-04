@@ -232,3 +232,11 @@ go get github.com/o1egl/paseto
 PASETO CreaetToken -> paseto.Encrypt
 PASETO VerifyToken -> paseto.Decrypt
 
+# Login API with token
+
+Add token config
+For test, 
+make newTestServer with token maker instead of call NewServer
+
+In loginUser,
+sensitive data inside db.User struct -> function Uppser to lowwer
