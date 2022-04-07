@@ -239,4 +239,39 @@ For test,
 make newTestServer with token maker instead of call NewServer
 
 In loginUser,
-sensitive data inside db.User struct -> function Uppser to lowwer
+sensitive data inside db.User struct -> function Upper to lower
+
+# Authentication middleware and Authorization rules
+
+Authorization in Header (API)
+access-token belongs specipic user, should not be able to access other users
+
+Using Gin Middleware (Authorization)
+  ! -> context.Abort()
+  ok -> action api func
+
+Ways
+  1. Extract Authorization header from the request
+  2. 
+
+  *Multiple Test
+
+    testCases := []struct {
+      name          string
+      setupAuth     func(t *testing.T, request *http.Request, tokenMaker token.Maker)
+      checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
+      ...
+    }{}
+
+    for i := range testCases {
+
+      tc := testCases[i]
+      t.Run(tc.name, func(t *testing.T) {
+        server := newTestServer(t, nil)
+        ...
+      })
+    }
+
+Gin Router Group
+  -> .Group("/path").Use(middleware func)
+  Add middleware all of routes in the group

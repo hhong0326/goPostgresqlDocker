@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/hhong0326/goPostgresqlDocker.git/util"
-	"github.com/o1egl/paseto"
 	"github.com/stretchr/testify/require"
 )
 
@@ -51,19 +50,19 @@ func TestExpiredPasetoToken(t *testing.T) {
 }
 
 // require correction
-func TestInvalidPasetoTokenAlg(t *testing.T) {
+// func TestInvalidPasetoTokenAlg(t *testing.T) {
 
-	payload, err := NewPayload(util.RandomOwner(), time.Minute)
-	require.NoError(t, err)
+// 	payload, err := NewPayload(util.RandomOwner(), time.Minute)
+// 	require.NoError(t, err)
 
-	token, err := paseto.NewV2().Encrypt([]byte("12345678901234567890123456789032"), payload, nil)
+// 	token, err := paseto.NewV2().Encrypt([]byte("12345678901234567890123456789032"), payload, nil)
 
-	t.Log(token)
-	maker, err := NewPasetoMaker(token)
-	require.NoError(t, err)
+// 	t.Log(token)
+// 	maker, err := NewPasetoMaker(token)
+// 	require.NoError(t, err)
 
-	payload, err = maker.VerifyToken(token)
-	require.Error(t, err)
-	require.EqualError(t, err, ErrInvalidToken.Error())
-	require.Nil(t, payload)
-}
+// 	payload, err = maker.VerifyToken(token)
+// 	require.Error(t, err)
+// 	require.EqualError(t, err, ErrInvalidToken.Error())
+// 	require.Nil(t, payload)
+// }
