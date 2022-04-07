@@ -75,7 +75,7 @@ func (server *Server) getAccount(ctx *gin.Context) {
 	}
 
 	// Owner check using token
-	authPayload := ctx.MustGet(authorizationHeaderKey).(*token.Payload)
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	if account.Owner != authPayload.Username {
 		err := errors.New("account doesn't belong to the authentication user")
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
@@ -102,7 +102,7 @@ func (server *Server) listAccount(ctx *gin.Context) {
 		return
 	}
 
-	authPayload := ctx.MustGet(authorizationHeaderKey).(*token.Payload)
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	arg := db.ListAccountsParams{
 		Owner:  authPayload.Username,
 		Limit:  req.PageSize,
