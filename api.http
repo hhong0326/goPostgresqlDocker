@@ -21,14 +21,16 @@ POST http://localhost:8080/users/login
 
 ###
 POST http://localhost:8080/accounts
+Authorization: Bearer v2.local._AsIjqtMrGB3EdNf1kxesrIQXzwcX50vnMqUhgPqHPKLkoZIvyCmfqLWWfS14O-JC-aRIKPJUr1O-zTzJNbHQGFxpviRL2VElkUwTX5nJpQSas3i10AOBawm9483IPqxpTHCqXgc8Nw7E5f4S4O0HJWoc_kc_h9yV9BWrj7OsHDcv3bkF96LU27xHoZj5w7bf78XgfGaI_SW5uw_pW6bYtsHKzDS1Sj6khQkqxq_Ff-p49g38l2yisid1ewEmN_p4waSYhV86Wzh3w.bnVsbA
 
 {
-    "owner": "kawjjk",
+    "owner": "helloMAC",
     "currency": "EUR"
 }
 
 ###
-http://localhost:8080/accounts?page_id=6&page_size=5
+http://localhost:8080/accounts?page_id=1&page_size=5
+Authorization: Bearer v2.local._AsIjqtMrGB3EdNf1kxesrIQXzwcX50vnMqUhgPqHPKLkoZIvyCmfqLWWfS14O-JC-aRIKPJUr1O-zTzJNbHQGFxpviRL2VElkUwTX5nJpQSas3i10AOBawm9483IPqxpTHCqXgc8Nw7E5f4S4O0HJWoc_kc_h9yV9BWrj7OsHDcv3bkF96LU27xHoZj5w7bf78XgfGaI_SW5uw_pW6bYtsHKzDS1Sj6khQkqxq_Ff-p49g38l2yisid1ewEmN_p4waSYhV86Wzh3w.bnVsbA
 
 ###
 PUT  http://localhost:8080/accounts
@@ -46,10 +48,11 @@ DELETE  http://localhost:8080/accounts
 
 ###
 POST http://localhost:8080/transfers
+Authorization: Bearer v2.local._AsIjqtMrGB3EdNf1kxesrIQXzwcX50vnMqUhgPqHPKLkoZIvyCmfqLWWfS14O-JC-aRIKPJUr1O-zTzJNbHQGFxpviRL2VElkUwTX5nJpQSas3i10AOBawm9483IPqxpTHCqXgc8Nw7E5f4S4O0HJWoc_kc_h9yV9BWrj7OsHDcv3bkF96LU27xHoZj5w7bf78XgfGaI_SW5uw_pW6bYtsHKzDS1Sj6khQkqxq_Ff-p49g38l2yisid1ewEmN_p4waSYhV86Wzh3w.bnVsbA
 
 {
-    "from_account_id": 778,
+    "from_account_id": 124,
     "to_account_id": 779,
     "amount": 1,
-    "currency": "DDD"
+    "currency": "EUR"
 }
