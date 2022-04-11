@@ -36,6 +36,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 	if fromAccount.Owner != authPayload.Username {
 		err := errors.New("from account dosen't belong to the authenticated user")
 		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
 	}
 
 	_, valid = server.validAccount(ctx, req.ToAccountID, req.Currency)
@@ -53,6 +54,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 	result, err := server.store.TransferTx(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	ctx.JSON(http.StatusOK, result)

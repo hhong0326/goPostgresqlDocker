@@ -275,3 +275,12 @@ Ways
 Gin Router Group
   -> .Group("/path").Use(middleware func)
   Add middleware all of routes in the group
+
+* gomock test rules
+buildStubs: func(store *mockdb.MockStore) {
+  // error point
+  store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(account3.ID)).Times(1).Return(account3, nil)
+  // after db times to 0
+  store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(account2.ID)).Times(0)
+  store.EXPECT().TransferTx(gomock.Any(), gomock.Any()).Times(0)
+},
