@@ -284,3 +284,96 @@ buildStubs: func(store *mockdb.MockStore) {
   store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(account2.ID)).Times(0)
   store.EXPECT().TransferTx(gomock.Any(), gomock.Any()).Times(0)
 },
+
+# Add docker
+
+1. git
+
+git checkout -b "new_branch"
+master -> new branch -> update code -> test
+-> merge to master!
+
+2. mac(local) and progran package version check
+
+3. Dockerfile
+make Dockerfile in root
+to define the base image to build our app
+(based Golang -> needs Golang image)
+
+alpine is small image
+
+    FROM golang:version 
+      -> to specify the base image
+
+    WORKDIR /app
+      -> to declare the current working directory inside the image
+
+    COPY . .
+      -> first, copy the current folder files
+      -> second paste to the WORKDIR setting path (place to store)
+
+    RUN go build -o main main.go
+      -> build our app to a single binary exec file
+      -> -o is setting output file
+
+    EXPOSE 0000
+      -> the container listens on the specified network port at runtime
+      -> 0000 -> port number
+      -> noting that the EXPOSE doesn't actually publish the port
+
+    CMD ["/app/main"]
+      -> to define the default command to run when the container starts
+
+  *How to make more smaller?*
+  Multistage
+  # Build stage(first stage)
+    FROM + AS builder
+  # Run stage(second stage)
+    FROM alpine:3.13
+    WORKDIR /app
+    COPY --from=builder /app/main . # first stage's (--from is option)
+
+  *Make Image*
+  docker build -t image:latest .
+
+  
+# Docker Network to connect container
+
+  *Run Image*
+  docker run --name app -p PORT:PORT image:latest
+
+  config file .env -> development to production config file
+  COPY app.env .
+
+  docker run --name app -p PORT:PORT -e GIN_MODE=release image:latest
+
+To allow 2 stand-alone containers to talk to each other by names
+ 
+  *Golang & PostgreSQL container network setting is different (about localhost)
+  docker container inspect container_name
+  172.17.0.3 / 172.17.0.2
+
+  but when rebuild image, it IP address will change
+  So that the better way is do not rebuild
+  -> using viper to read the config
+  -> override config file 
+  -> Add command into docker run : -e DB_SOURCE="postgres://user:pw@Inspect_IP:PORT/app?sslmode=disable"
+
+  *but when rerun the new container, IP address will change
+  So that using user-defined network instead!
+
+  -> check networks
+  docker network ls
+  docker network inspect bridge
+
+  brigge is offering default IP to container
+  -> to create own network
+  docker network create new_network_name
+  docker network connect new_network_name
+  -> docker run app
+  -> --network created_network_name
+  -> IP address changes to container_name (same network's container name)
+  docker run --name app --network network_name -p PORT:PORT -e GIN_MODE=release -e DB_SOURCE="postgres://user:pw@container_name:PORT/app?sslmode=disable" image:latest
+  
+  now using its name instead of the IP address.
+
