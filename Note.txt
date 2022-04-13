@@ -377,3 +377,5 @@ To allow 2 stand-alone containers to talk to each other by names
   
   now using its name instead of the IP address.
 
+* Reviews Code in Github
+In Pull requests, add comment about some specific code lines
