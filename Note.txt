@@ -377,5 +377,58 @@ To allow 2 stand-alone containers to talk to each other by names
   
   now using its name instead of the IP address.
 
+  config file: Inspect_IP -> localhost
+
 * Reviews Code in Github
 In Pull requests, add comment about some specific code lines
+
+# How to write docker-compose.yml 
+
+- follow file reference Version 3
+
+version: "3.9"
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=root
+      ...
+
+  // service name
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - localhost to name connected the same network (postgres)
+      - DB_SOURCE=postgres...
+
+  - docker compose up
+    -> Network simplebank_default       Create...
+    -> New network includes postgres and api service 
+  - docker compose down 
+    -> down container and remove images
+
+  - Edit Dockerfile and docker-compose.yml for migration
+  specially Dockerfile Add RUN command "apk add curl" for that
+
+  - Add start.sh in root
+  chmod +x start.sh
+
+  *CMD & ENTRYPOINT (CMD in Dockerfile reference)
+  : if CMS id used to provide default arguments for the ENTRYPOINT instruction, 
+    both the CMD and ENTRYPOINT instructions should be specified woth the JSON array format
+
+  - docker compose up again (Error handling)
+    -> the postgres server was not ready to accept connection with api service yet
+    -> Need to wait in docker-compose.yml (depends_on:)
+
+  *depends_on (Control startup and shutdown order in Compose)
+  : does not wait for db and redis to be "ready" before starting web only until they have been started.
+
+  - wait-for
+    -> COPY wait-for . (Dockerfile)
+    -> entrypoint: [ "/app/wait-for", "db:port", "--", "/app/start.sh"] (docker-compose.yml)
+       command: [ "/app/main" ]
