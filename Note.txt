@@ -417,6 +417,20 @@ services:
   - Add start.sh in root
   chmod +x start.sh
 
+  #!/bin/sh
+  # will be run by /bin/sh
+  # alpine image
+  # bash is not available
+
+  set -e
+
+  echo "run db migration"
+  /app/migrate -path /app/migration -database "$DB_SOURCE" -verbose up
+
+  echo "start the app"
+  # takes all parameters passed to the script and run it 
+  exec "$@"
+
   *CMD & ENTRYPOINT (CMD in Dockerfile reference)
   : if CMS id used to provide default arguments for the ENTRYPOINT instruction, 
     both the CMD and ENTRYPOINT instructions should be specified woth the JSON array format
