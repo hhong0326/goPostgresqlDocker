@@ -203,30 +203,6 @@ func TestCreateAccountAPI(t *testing.T) {
 				requireBodyMatchAccount(t, recorder.Body, account)
 			},
 		},
-		// {
-		// 	name: "UnauthorizedUser",
-		// 	body: gin.H{
-		// 		"currency": account.Currency,
-		// 	},
-		// 	setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
-		// 		addAuthorization(t, request, tokenMaker, authorizationTypeBearer, "unauthorized_user", time.Minute)
-		// 	},
-		// 	buildStubs: func(store *mockdb.MockStore) {
-		// 		arg := db.CreateAccountParams{
-		// 			Owner:    "unauthorized_user",
-		// 			Currency: account.Currency,
-		// 			Balance:  0,
-		// 		}
-
-		// 		store.EXPECT().
-		// 			CreateAccount(gomock.Any(), gomock.Eq(arg)).
-		// 			Times(1).
-		// 			Return(account, nil)
-		// 	},
-		// 	checkResponse: func(recorder *httptest.ResponseRecorder) {
-		// 		require.Equal(t, http.StatusUnauthorized, recorder.Code)
-		// 	},
-		// },
 		{
 			name: "NoAuthorization",
 			body: gin.H{
@@ -463,6 +439,10 @@ func TestListAccountAPI(t *testing.T) {
 			tc.checkResponse(recorder)
 		})
 	}
+}
+
+func TestDeleteAccountAPI(t *testing.T) {
+
 }
 
 func randomAccount(owner string) db.Account {
