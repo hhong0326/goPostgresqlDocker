@@ -446,3 +446,16 @@ services:
     -> COPY wait-for . (Dockerfile)
     -> entrypoint: [ "/app/wait-for", "db:port", "--", "/app/start.sh"] (docker-compose.yml)
        command: [ "/app/main" ]
+
+# AWS 
+
+ECR 
+  - a fully-managed docker container registry
+  - makes it easy to store, manage and deploy docker container images.
+
+  1. make repository (= docker image store)
+  2. image push. But can use github actions to automatically (build tag push, when to merge master branch)
+  3. add yml file for github actions
+  4. IAM setting for credential AWS ECR
+  5. github -> setting -> secret -> actions: add new accecc key and secret key ex name: AWS_ACCESS_KEY_ID (in yml)
+  
