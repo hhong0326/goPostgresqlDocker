@@ -5,10 +5,19 @@ MEMO
 local to docker container
 docker container to local
 
+0. make db architecture
 
+1.
 migrate create -ext sql -dir db/migration -seq init_schema
 -seq means migrate version name.
 
+2. 
+copy sql and paste to init_schema.up.sql
+
+3.
+write drop table sth in a down file
+
+3.
 migrate -path db/migration -database "postgres://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
 
@@ -124,7 +133,7 @@ var validCurreny validator.Func
 
 # User Authentication and Authorization
 
-# Update DB schema to previous version 
+# Update DB schema from previous version 
 
 add foreign key and unique constraint
 ref: 
@@ -458,4 +467,100 @@ ECR
   3. add yml file for github actions
   4. IAM setting for credential AWS ECR
   5. github -> setting -> secret -> actions: add new accecc key and secret key ex name: AWS_ACCESS_KEY_ID (in yml)
+  
+RDS
+  - don't have to care to maintain or scale the DB cluster
+
+  Point
+    1. select option
+    2. set vpc security group 
+
+Secrets Manager
+  - Set SM for RDS 
+  - other keys (from .env file`)
+  - Input Keys and Values
+  
+  command for rand token symmetric key
+  openssl rand -hex 64 -> 64bytes 
+  (get 128 charactors rand string)
+  openssl rand -hex 64 | head -c 32
+  (get 32 charactors rand string)
+
+  
+
+AWS cli with iAM
+  0. download cli
+  1. Create new key
+  2. command "aws configure"
+  3. set key and secret
+  4. see the file by command "ls -l ~/.aws"
+  5. see the credentials by command "cat ~/.aws/credentials"
+
+  help
+  : aws [service_name] help
+
+SM using AWS cli
+  aws secretsmanager get-secret-value --secret-id simple_bank
+  {
+    "ARN": "arn:aws:secretsmanager:ap-northeast-1:312901933285:secret:simple_bank-AvZaeI",
+    "Name": "simple_bank",
+    "VersionId": "8eb30622-d8a8-4764-bf76-0f2b95f0d7c8",
+    "SecretString": "{\"DB_DRIVER\":\"postgres\",\"SERVER_ADDRESS\":\"0.0.0.0:8080\",\"ACCESS_TOKEN_DURATION\":\"15m\",\"TOKEN_SYMMETRIC_KEY\":\"6e35ec823dcc0664a9e715ca3cfb10ed\"}",
+    "VersionStages": [
+        "AWSCURRENT"
+    ],
+    "CreatedDate": "2022-05-19T16:49:02.440000+09:00"
+  }
+
+-> Makes SecretString to like app.env file (data structure)
+  1. aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString
+
+    "{\"DB_DRIVER\":\"postgres\",\"SERVER_ADDRESS\":\"0.0.0.0:8080\",\"ACCESS_TOKEN_DURATION\":\"15m\",\"TOKEN_SYMMETRIC_KEY\":\"6e35ec823dcc0664a9e715ca3cfb10ed\"}"
+  2. 
+    brew install jq
+    jq ''
+
+    aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq 'to_entries'
+    [
+      {
+        "key": "DB_DRIVER",
+        "value": "postgres"
+      },
+      {
+        "key": "SERVER_ADDRESS",
+        "value": "0.0.0.0:8080"
+      },
+      {
+        "key": "ACCESS_TOKEN_DURATION",
+        "value": "15m"
+      },
+      {
+        "key": "TOKEN_SYMMETRIC_KEY",
+        "value": "6e35ec823dcc0664a9e715ca3cfb10ed"
+      }
+    ]
+
+  3.
+    aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq 'to_entries|map(.value)' 
+    [
+      "postgres",
+      "0.0.0.0:8080",
+      "15m",
+      "6e35ec823dcc0664a9e715ca3cfb10ed"
+    ]
+
+  4. 
+    aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq 'to_entries|map("\(.key)=\(.value)")' 
+      [
+        "DB_DRIVER=postgres",
+        "SERVER_ADDRESS=0.0.0.0:8080",
+        "ACCESS_TOKEN_DURATION=15m",
+        "TOKEN_SYMMETRIC_KEY=6e35ec823dcc0664a9e715ca3cfb10ed"
+      ]
+      -> + |.[] (remove [])
+  Final.
+    aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' 
+    -> -r remove string
+    -> + > app.env (to send)
+
   
