@@ -563,4 +563,11 @@ SM using AWS cli
     -> -r remove string
     -> + > app.env (to send)
 
+* git checkout . 
+(reset all the changes)
   
+  Edit deploy.yml file
+  - name: Load secrets and save to app.env
+    run: aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env 
+
+  no need to install jq in ubuntu (already installed)
