@@ -499,7 +499,7 @@ AWS cli with iAM
   help
   : aws [service_name] help
 
-SM using AWS cli
+SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
   aws secretsmanager get-secret-value --secret-id simple_bank
   {
     "ARN": "arn:aws:secretsmanager:ap-northeast-1:312901933285:secret:simple_bank-AvZaeI",
@@ -571,3 +571,6 @@ SM using AWS cli
     run: aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env 
 
   no need to install jq in ubuntu (already installed)
+
+* write source app.env to start.sh file
+  - need to set app.env file before db migration
