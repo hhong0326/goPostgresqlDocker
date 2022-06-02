@@ -71,6 +71,10 @@ database locking
 # TDD | test driven development
 Tests first to make our current code breaks
 
+* Test command
+go test -v -coverprofile cover.out ./...
+go tool cover -html=cover.out
+
 # Deadlock postgresql
 https://wiki.postgresql.org/wiki/Lock_Monitoring
 Deadlock ocuurs because 2 concurrent transactions both need to wait for each other
