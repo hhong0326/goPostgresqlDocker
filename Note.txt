@@ -306,7 +306,7 @@ git checkout -b "new_branch"
 master -> new branch -> update code -> test
 -> merge to master!
 
-2. mac(local) and progran package version check
+2. mac(local) and program package version check
 
 3. Dockerfile
 make Dockerfile in root
@@ -379,7 +379,7 @@ To allow 2 stand-alone containers to talk to each other by names
   docker network ls
   docker network inspect bridge
 
-  brigge is offering default IP to container
+  bridge is offering default IP to container
   -> to create own network
   docker network create new_network_name
   docker network connect new_network_name
@@ -578,3 +578,90 @@ SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
 
 * write source app.env to start.sh file
   - need to set app.env file before db migration
+
+gRPC
+
+  *sequential numbering
+    1-15 = until 1byte -> save memory
+    ^16 = starting 2bytes
+    string username = 1;
+    string fullname = 2;
+
+  * mkdir proto
+    setup proto file
+    setup service using proto file
+
+  make command
+
+  add --proto_path=proto 
+
+  proto: 
+    protoc --proto_path=proto --go_out=. --go_opt=paths=source_relative \
+      --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+      proto/*.proto
+
+  * make start server func for grpc
+  
+  * Evans is the best gRPC client interactive console
+
+  *Mac install command
+  - brew tap ktr0731/evans
+  - brew install evans
+  * Connect server from client
+    - evans --host localhost --port 9090 -r repl 
+  // Default port is 50051
+
+  * show all of gRPC service func to be able to use from client
+  - show service
+
+  * call service func to server
+  - call CreateUser
+
+  * Implement UnimplementedSimpleBankServer
+    Don't have to validate, it was already proccessed
+
+  * error 
+  status.Errorf(codes.Unimplemented, "message")
+
+  *gRPC gateway
+  : serve gRPC, HTTP request at the same time
+
+  Ways 
+  https://github.com/grpc-ecosystem/grpc-gateway
+  
+  - mkdir tools
+  - touch tools.go
+
+  - Add code
+  ```
+    package tools
+
+    import (
+        _ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
+        _ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
+        _ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
+        _ "google.golang.org/protobuf/cmd/protoc-gen-go"
+    )
+  ```
+
+  - go install \
+    github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway \
+    github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2 \
+    google.golang.org/protobuf/cmd/protoc-gen-go \
+    google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+  * main.go
+  - make func runGatewayServer() ...
+  - using mux // mux http to grpc
+  
+  ```
+    mux := http.NewServeMux()
+    mux.Handle("/", grpcMux)
+
+    grpcServer := grpc.NewServer()
+    pb.RegisterSimpleBankServer(grpcServer, server)
+
+    reflection.Register(grpcServer)
+    
+    err = http.Serve(listener, mux)
+  ```

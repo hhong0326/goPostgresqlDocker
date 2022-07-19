@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+// timestamp is updated
+
+option go_package = "github.com/hhong0326/goPostgresqlDocker.git/pb";
+
+message User {
+
+    // sequential numbering
+    // 1-15 = until 1byte -> save memory
+    // ^16 = starting 2bytes
+    string username = 1;
+    string fullname = 2;
+    string email = 3;
+    google.protobuf.Timestamp password_changed_at = 4;
+    google.protobuf.Timestamp created_at = 5;
+}

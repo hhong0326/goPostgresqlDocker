@@ -66,15 +66,15 @@ func TestCreateUserAPI(t *testing.T) {
 		{
 			name: "OK",
 			body: gin.H{
-				"username":  user.Username,
-				"password":  pw,
-				"full_name": user.FullName,
-				"email":     user.Email,
+				"username": user.Username,
+				"password": pw,
+				"Fullname": user.Fullname,
+				"email":    user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					FullName: user.FullName,
+					Fullname: user.Fullname,
 					Email:    user.Email,
 				}
 
@@ -94,7 +94,7 @@ func TestCreateUserAPI(t *testing.T) {
 			body: gin.H{
 				"username":  user.Username,
 				"password":  pw,
-				"full_name": user.FullName,
+				"full_name": user.Fullname,
 				"email":     user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
@@ -113,7 +113,7 @@ func TestCreateUserAPI(t *testing.T) {
 			body: gin.H{
 				"username":  user.Username,
 				"password":  pw,
-				"full_name": user.FullName,
+				"full_name": user.Fullname,
 				"email":     user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
@@ -132,7 +132,7 @@ func TestCreateUserAPI(t *testing.T) {
 			body: gin.H{
 				"username":  "invalid-user#1",
 				"password":  pw,
-				"full_name": user.FullName,
+				"full_name": user.Fullname,
 				"email":     user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
@@ -150,7 +150,7 @@ func TestCreateUserAPI(t *testing.T) {
 			body: gin.H{
 				"username":  user.Username,
 				"password":  pw,
-				"full_name": user.FullName,
+				"full_name": user.Fullname,
 				"email":     "invalid-email.com",
 			},
 			buildStubs: func(store *mockdb.MockStore) {
@@ -168,7 +168,7 @@ func TestCreateUserAPI(t *testing.T) {
 			body: gin.H{
 				"username":  user.Username,
 				"password":  "123",
-				"full_name": user.FullName,
+				"full_name": user.Fullname,
 				"email":     user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
@@ -219,7 +219,7 @@ func randomUser(t *testing.T) (user db.User, pw string) {
 	user = db.User{
 		Username:       util.RandomOwner(),
 		HashedPassword: hashedPw,
-		FullName:       util.RandomOwner(),
+		Fullname:       util.RandomOwner(),
 		Email:          util.RandomEmail(),
 	}
 
@@ -235,7 +235,7 @@ func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, user db.User) {
 
 	require.NoError(t, err)
 	require.Equal(t, user.Username, gotUser.Username)
-	require.Equal(t, user.FullName, gotUser.FullName)
+	require.Equal(t, user.Fullname, gotUser.Fullname)
 	require.Equal(t, user.Email, gotUser.Email)
 	require.Empty(t, gotUser.HashedPassword)
 }

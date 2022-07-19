@@ -14,13 +14,13 @@ import (
 type createUserRequest struct {
 	Username string `json:"username" binding:"required,alphanum"` // alphanum only
 	Password string `json:"password" binding:"required,min=6"`
-	FullName string `json:"full_name" binding:"required"`
+	Fullname string `json:"fullname" binding:"required"`
 	Email    string `json:"email" binding:"required,email"` // go validator package email check
 }
 
 type userResponse struct {
 	Username          string    `json:"username"`
-	FullName          string    `json:"full_name"`
+	Fullname          string    `json:"fullname"`
 	Email             string    `json:"email"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
 	CreatedAt         time.Time `json:"created_at"`
@@ -30,7 +30,7 @@ type userResponse struct {
 func newUserResponse(user db.User) userResponse {
 	return userResponse{
 		Username:          user.Username,
-		FullName:          user.FullName,
+		Fullname:          user.Fullname,
 		Email:             user.Email,
 		PasswordChangedAt: user.PasswordChangedAt,
 		CreatedAt:         user.CreatedAt,
@@ -54,7 +54,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 	arg := db.CreateUserParams{
 		Username:       req.Username,
 		HashedPassword: hashedPw,
-		FullName:       req.FullName,
+		Fullname:       req.Fullname,
 		Email:          req.Email,
 	}
 

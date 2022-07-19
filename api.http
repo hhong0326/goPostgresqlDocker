@@ -9,10 +9,28 @@ POST http://localhost:8080/users
 }
 
 ###
+POST http://localhost:8080/v1/create_user
+
+{
+    "username": "helloMac",
+    "password": "12345678",
+    "fullname": "Sunil Gong",
+    "email": "helloMac@123.com"
+}
+
+###
 POST http://localhost:8080/users/login
 
 {
     "username": "helloMAC",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:8080/v1/login_user
+
+{
+    "username": "helloWin",
     "password": "12345678"
 }
 
