@@ -30,7 +30,7 @@ POST http://localhost:8080/users/login
 POST http://localhost:8080/v1/login_user
 
 {
-    "username": "helloWin",
+    "username": "helloMac",
     "password": "12345678"
 }
 

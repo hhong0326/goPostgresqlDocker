@@ -1,4 +1,4 @@
-MEMO
+# MEMO
 
 # DB Migration 
 
@@ -25,12 +25,12 @@ brew install postgresql
 brew install tableplus
 brew install sqlc // sql to go 
 
-# pq - A pure Go postgres driver for Go's database/sql package
+## pq - A pure Go postgres driver for Go's database/sql package
 go get github.com/lib/pq
 go get github.com/stretchr/testify
                                   /require
 
-# CRUD sqlc
+## CRUD sqlc
 
 move to root directory
  -> command "sqlc init"
@@ -60,11 +60,11 @@ D: Durability
 Closure is often used when want to get the result from a callback function.
 the callback function itself doesn't know the exact type of the result it should return
 
-# Caution when Database Transaction
+## Caution when Database Transaction
 concurrency carefully!
 The best way that is run it with several concurrent go routines
 
-# Update Account within Transaction
+## Update Account within Transaction
 Require careful handing of concurrent transactions to avoid deadlock
 database locking 
 
@@ -84,7 +84,7 @@ can resolve deadlock consider order of transactions
 SELECT * FROM accounts WHERE id = $1 LIMIT 1
 + FOR NO KEY UPDATE
 
-# Isolation level
+## Isolation level
 dirty read | read uncommitted 
 non-repeatable read |read committed
 phantom read | repeatable read
@@ -128,7 +128,7 @@ through the interface about DB service, mockgen makes Mock Service for Unit test
 # Test Multiple senarios
 using t.Run()
 
-# struct `` options -> nedd validator
+## struct `` options -> nedd validator
 binding:"oneof= " -> How to avoid hard-coding -> just 'currency'
 
 import "github.com/go-playground/validator/v10"
@@ -137,7 +137,7 @@ var validCurreny validator.Func
 
 # User Authentication and Authorization
 
-# Update DB schema from previous version 
+## Update DB schema from previous version 
 
 add foreign key and unique constraint
 ref: 
@@ -156,7 +156,7 @@ create a new migration version.
 command "migrate -verbose up 1 || down 1" -> choose version when migration.
 so that can backup the db version
 
-# handle DB errors for adding users migration
+## handle DB errors for adding users migration
 
 change owner -> user.Username(foreign key) to account test file.
 command "make mock" regenerate
@@ -218,7 +218,7 @@ Problem of JWT
   local -> Symmetric
   public -> Asymmetric
   
-# Create JWT & PASETO token
+## Create JWT & PASETO token
 
 interface 2 method
 
@@ -245,7 +245,7 @@ go get github.com/o1egl/paseto
 PASETO CreaetToken -> paseto.Encrypt
 PASETO VerifyToken -> paseto.Decrypt
 
-# Login API with token
+## Login API with token
 
 Add token config
 For test, 
@@ -254,7 +254,7 @@ make newTestServer with token maker instead of call NewServer
 In loginUser,
 sensitive data inside db.User struct -> function Upper to lower
 
-# Authentication middleware and Authorization rules
+## Authentication middleware and Authorization rules
 
 Authorization in Header (API)
 access-token belongs specipic user, should not be able to access other users
@@ -339,9 +339,9 @@ alpine is small image
 
   *How to make more smaller?*
   Multistage
-  # Build stage(first stage)
+  ## Build stage(first stage)
     FROM + AS builder
-  # Run stage(second stage)
+  ## Run stage(second stage)
     FROM alpine:3.13
     WORKDIR /app
     COPY --from=builder /app/main . # first stage's (--from is option)
@@ -430,10 +430,10 @@ services:
   - Add start.sh in root
   chmod +x start.sh
 
-  #!/bin/sh
-  # will be run by /bin/sh
-  # alpine image
-  # bash is not available
+  ### !/bin/sh
+  ### will be run by /bin/sh
+  ### alpine image
+  ### bash is not available
 
   set -e
 
@@ -441,7 +441,7 @@ services:
   /app/migrate -path /app/migration -database "$DB_SOURCE" -verbose up
 
   echo "start the app"
-  # takes all parameters passed to the script and run it 
+  ### takes all parameters passed to the script and run it 
   exec "$@"
 
   *CMD & ENTRYPOINT (CMD in Dockerfile reference)
@@ -579,19 +579,19 @@ SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
 * write source app.env to start.sh file
   - need to set app.env file before db migration
 
-gRPC
+# gRPC
 
-  *sequential numbering
-    1-15 = until 1byte -> save memory
-    ^16 = starting 2bytes
-    string username = 1;
-    string fullname = 2;
+  ### sequential numbering (= field tag)
+  - 1-15 = until 1byte -> save memory
+  - ^16 = starting 2bytes
+  - string username = 1;
+  - string fullname = 2;
 
-  * mkdir proto
+  ### mkdir proto
     setup proto file
     setup service using proto file
 
-  make command
+  ### make command
 
   add --proto_path=proto 
 
@@ -600,27 +600,27 @@ gRPC
       --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
       proto/*.proto
 
-  * make start server func for grpc
+  ### make start server func for grpc
   
-  * Evans is the best gRPC client interactive console
+  ### Evans is the best gRPC client interactive console
 
-  *Mac install command
+  ### Mac install command
   - brew tap ktr0731/evans
   - brew install evans
   * Connect server from client
     - evans --host localhost --port 9090 -r repl 
   // Default port is 50051
 
-  * show all of gRPC service func to be able to use from client
+  ### show all of gRPC service func to be able to use from client
   - show service
 
-  * call service func to server
+  ###  call service func to server
   - call CreateUser
 
-  * Implement UnimplementedSimpleBankServer
+  ### Implement UnimplementedSimpleBankServer
     Don't have to validate, it was already proccessed
 
-  * error 
+  ### error 
   status.Errorf(codes.Unimplemented, "message")
 
   *gRPC gateway
@@ -651,7 +651,7 @@ gRPC
     google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
   * main.go
-  - make func runGatewayServer() ...
+  - make func runGatewayServer() ... 
   - using mux // mux http to grpc
   
   ```
