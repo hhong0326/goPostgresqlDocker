@@ -623,10 +623,10 @@ SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
   ### error 
   status.Errorf(codes.Unimplemented, "message")
 
-  *gRPC gateway
+  ### gRPC gateway
   : serve gRPC, HTTP request at the same time
 
-  Ways 
+  #### Ways 
   https://github.com/grpc-ecosystem/grpc-gateway
   
   - mkdir tools
@@ -650,7 +650,7 @@ SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
     google.golang.org/protobuf/cmd/protoc-gen-go \
     google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
-  * main.go
+  ### main.go
   - make func runGatewayServer() ... 
   - using mux // mux http to grpc
   
@@ -664,4 +664,29 @@ SM using AWS cli (Store & retrieve production secrets with AWS secrets manager)
     reflection.Register(grpcServer)
     
     err = http.Serve(listener, mux)
+  ```
+
+# Swagger (Swagger Hub & UI)
+Tool is easy to make Open API document 
+
+## add proto options
+
+### swagger hub (Charged version)
+ 
+- update make proto command from Makefile
+`--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simplebank`
+- Sign up swagger hub
+- `Import json file` from proto options command
+- Can update to add `protoc-gen-openapiv2 options`
+
+### swagger-ui (Free version)
+
+- git clone `https://github.com/swagger-api/swagger-ui.git`
+- all of file in `dist` dir cp to doc/swagger
+- change url to origin swagger json filename in `swagger-initializer.js`
+- update server code
+  in runGatewayServer(main.go)
+	```
+  fs := http.FileServer(http.Dir("./doc/swagger"))
+	http.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
   ```
